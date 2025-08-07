@@ -30,6 +30,8 @@ if st.button("🔄 Refresh Training List"):
 st.sidebar.header("🔍 Filter Trainings")
 date_filter = st.sidebar.date_input("Date (optional)", value=None)
 cert_filter = st.sidebar.selectbox("Certificate Offered?", options=["All", "Yes", "No"])
+level_options = ["All"] + sorted(df["Level"].dropna().unique())
+level_filter = st.sidebar.selectbox("Level", options=level_options)
 search_term = st.sidebar.text_input("Search by Title/Description")
 
 filtered_df = df.copy()
