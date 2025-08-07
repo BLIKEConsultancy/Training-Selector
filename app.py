@@ -51,12 +51,12 @@ for _, row in filtered_df.iterrows():
         st.markdown(f"**Description:** {row['Description']}")
         st.markdown(f"**Price:** {row['Price']}")
 
-        with st.form(key="enrollment_form"):
-            name = st.text_input("Name")
-            email = st.text_input("Email")
-            phone = st.text_input("Phone")
+        with st.form(key=f"enrollment_form_{row['Title']}"):
+            name = st.text_input("Name", key=f"name_{row['Title']}")
+            email = st.text_input("Email", key=f"email_{row['Title']}")
+            phone = st.text_input("Phone", key=f"phone_{row['Title']}")
             submit = st.form_submit_button("✅ Confirm Enrollment")
-
+            
             if submit:
                 subject = f"Training Enrollment: {row['Title']}"
                 body = f"""Hi,%0D%0A%0D%0A
