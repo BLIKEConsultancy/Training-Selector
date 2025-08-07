@@ -52,8 +52,8 @@ for _, row in filtered_df.iterrows():
         st.markdown(f"**Price:** {row['Price']}")
 
         if st.button(f"📩 Enroll in {row['Title']}", key=f"enroll_{row['Title']}"):
+            enroll_subject = f"Training Enrollment: {row['Title']}"
             st.markdown(
                 f'<meta http-equiv="refresh" content="0; url=mailto:katrinidad@blike.com.ph?subject={enroll_subject}">',
                 unsafe_allow_html=True
-            )
-        st.markdown("---")
+        )
