@@ -8,7 +8,7 @@ st.image("Blike Logo.png", width=200)
 st.title("📚 BLIKE Training Selector Tool")
 
 # Google Sheet CSV export URL (live link)
-sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQhIrxnV8slbiNOox7qylKhAw6lnC94tuT3SM1CPmAOZ6HV1HjfYCPqRpADML64Aw/pub?output=csv"
+sheet_url = "https://docs.google.com/spreadsheets/d/15L9FQ-zaTho749GmoawJXsPaaPa0KciRbQqHxI8b9Wg/export?format=csv"
 
 @st.cache_data(ttl=600)
 def load_data():
@@ -16,6 +16,12 @@ def load_data():
     return df
 
 df = load_data()
+
+# Strip leading/trailing spaces from column names
+df.columns = df.columns.str.strip()
+
+# Optional: show column names for debugging
+st.write(df.columns.tolist())
 
 # Filters
 st.sidebar.header("🔍 Filter Trainings")
@@ -37,9 +43,15 @@ st.subheader("Available Trainings")
 for _, row in filtered_df.iterrows():
     with st.container():
         st.markdown(f"### {row['Title']}")
+        st.markdown(f"**Category:** {row['Category']}")
+        st.markdown(f"**Level:** {row['Level']}")
         st.markdown(f"**Date:** {row['Date']}")
         st.markdown(f"**Description:** {row['Description']}")
         st.markdown(f"**Certificate:** {row['Certificate']}")
-        enroll_link = f"mailto:katrinidad@blike.com.ph?subject=Training Enrollment: {row['Title']}"
-        st.markdown(f"[📩 Enroll Now]({enroll_link})", unsafe_allow_html=True)
+        st.markdown(f"**Price:** {row['Price']}")
+        if st.button(f"📩 Enroll in {row['Title']}", key=f"enroll_{row['Title']}"):
+            st.markdown(
+                f'<meta http-equiv="refresh" content="0; url=mailto:katrinidad@blike.com.ph?subject={enroll_subject}">',
+                unsafe_allow_html=True
+            )
         st.markdown("---")
