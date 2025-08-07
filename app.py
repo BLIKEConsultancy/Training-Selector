@@ -64,7 +64,7 @@ for _, row in filtered_df.iterrows():
             
             if submit:
                 subject = f"Training Enrollment: {row['Title']}"
-                body = f"""Hi {name},
+                body = f"""Hi Blike,
 
             I would like to enroll in the training titled "{row['Title']}".
             Name: {name}
