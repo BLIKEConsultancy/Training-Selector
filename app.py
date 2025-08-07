@@ -18,10 +18,10 @@ def load_data():
 df = load_data()
 
 # Strip leading/trailing spaces from column names
-df.columns = df.columns.str.strip()
+#df.columns = df.columns.str.strip()
 
 # Optional: show column names for debugging
-st.write(df.columns.tolist())
+#st.write(df.columns.tolist())
 
 # Filters
 st.sidebar.header("🔍 Filter Trainings")
