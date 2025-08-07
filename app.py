@@ -51,22 +51,21 @@ for _, row in filtered_df.iterrows():
         st.markdown(f"**Description:** {row['Description']}")
         st.markdown(f"**Price:** {row['Price']}")
 
-        with st.expander("📋 Enroll Now"):
-            name = st.text_input(f"Your Name for {row['Title']}", key=f"name_{row['Title']}")
-            email = st.text_input(f"Your Email", key=f"email_{row['Title']}")
-            phone = st.text_input(f"Your Phone Number", key=f"phone_{row['Title']}")
+        with st.form(key="enrollment_form"):
+                name = st.text_input("Name")
+                email = st.text_input("Email")
+                phone = st.text_input("Phone")
+                submit = st.form_submit_button("✅ Confirm Enrollment")
 
-            if st.button(f"📩 Confirm Enrollment in {row['Title']}", key=f"confirm_{row['Title']}"):
+            if submit:
                 subject = f"Training Enrollment: {row['Title']}"
-                body = f"""Hi,
+                body = f"""Hi,%0D%0A%0D%0A
 
-            I would like to enroll in the training titled "{row['Title']}".
-
-            Name: 
-            Email: 
-            Phone: 
-
-            Thank you!"""
+            I would like to enroll in the training titled "{row['Title']}".%0D%0A%0D%0A
+            Name: {name}%0D%0A
+            Email: {email}%0D%0A
+            Phone: {phone}%0D%0A%0D%0A
+            Thank you!"""  
     
                 # Encode for URL
                 from urllib.parse import quote
