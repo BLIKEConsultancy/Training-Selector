@@ -10,12 +10,15 @@ st.title("📚 BLIKE Training Selector Tool")
 # Google Sheet CSV export URL (live link)
 sheet_url = "https://docs.google.com/spreadsheets/d/15L9FQ-zaTho749GmoawJXsPaaPa0KciRbQqHxI8b9Wg/export?format=csv"
 
-@st.cache_data(ttl=600)
+@st.cache_data(ttl=60)
 def load_data():
-    df = pd.read_csv(sheet_url)
-    return df
+    return pd.read_csv(sheet_url)
 
 df = load_data()
+
+if st.button("🔄 Refresh Training List"):
+    load_data.clear()  # Clears the cached data
+    st.experimental_rerun()  # Reloads the app with fresh data
 
 # Strip leading/trailing spaces from column names
 #df.columns = df.columns.str.strip()
