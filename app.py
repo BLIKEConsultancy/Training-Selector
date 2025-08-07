@@ -56,25 +56,28 @@ for _, row in filtered_df.iterrows():
             email = st.text_input(f"Your Email", key=f"email_{row['Title']}")
             phone = st.text_input(f"Your Phone Number", key=f"phone_{row['Title']}")
 
-            if st.button(f"📩 Confirm Enrollment", key=f"enroll_{row['Title']}"):
-                if name and email:
-                    subject = f"Training Enrollment: {row['Title']}"
-                    body = (
-                        f"Hi,\n\n"
-                        f"I would like to enroll in the training titled \"{row['Title']}\".\n\n"
-                        f"Name: {name}\n"
-                        f"Email: {email}\n"
-                        f"Phone: {phone}\n\n"
-                        f"Thank you!"
-                    )
-                    mailto_link = f"mailto:katrinidad@blike.com.ph?subject={subject}&body={body}"
-                    mailto_link = mailto_link.replace('\n', '%0D%0A')  # line breaks for mail body
+            if st.button(f"📩 Confirm Enrollment in {row['Title']}", key=f"confirm_{row['Title']}"):
+                subject = f"Training Enrollment: {row['Title']}"
+                body = f"""Hi,
 
-                    st.markdown(
-                        f'<meta http-equiv="refresh" content="0; url={mailto_link}">',
-                        unsafe_allow_html=True
-                    )
-                else:
-                    st.warning("Please fill in at least your name and email to proceed.")
+            I would like to enroll in the training titled "{row['Title']}".
 
-        st.markdown("---")
+            Name: 
+            Email: 
+            Phone: 
+
+            Thank you!"""
+    
+                # Encode for URL
+                from urllib.parse import quote
+                mailto_link = f"mailto:katrinidad@blike.com.ph?subject={quote(subject)}&body={quote(body)}"
+    
+                st.markdown(f"[📧 Click here if email doesn't open automatically]({mailto_link})", unsafe_allow_html=True)
+
+                # Optional: Automatically trigger the email link in a new browser tab
+                js_code = f"""
+                <script>
+                    window.open("{mailto_link}", "_self");
+                </script>
+                """
+                st.components.v1.html(js_code)
