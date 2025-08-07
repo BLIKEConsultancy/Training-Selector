@@ -80,3 +80,6 @@ for _, row in filtered_df.iterrows():
                 </script>
                 """
                 st.components.v1.html(js_code)
+
+                # ✅ Show confirmation message
+                st.success(f"🎉 Enrollment email for **{row['Title']}** has been prepared. Please check your email app!")
