@@ -42,13 +42,15 @@ if search_term:
 st.subheader("Available Trainings")
 for _, row in filtered_df.iterrows():
     with st.container():
-        st.markdown(f"### {row['Title']}")
+       st.markdown(f"### {row['Title']}")
         st.markdown(f"**Category:** {row['Category']}")
         st.markdown(f"**Level:** {row['Level']}")
         st.markdown(f"**Date:** {row['Date']}")
-        st.markdown(f"**Description:** {row['Description']}")
         st.markdown(f"**Certificate:** {row['Certificate']}")
+        st.markdown(f"**New:** {row['New']}")
+        st.markdown(f"**Description:** {row['Description']}")
         st.markdown(f"**Price:** {row['Price']}")
+        
         if st.button(f"📩 Enroll in {row['Title']}", key=f"enroll_{row['Title']}"):
             st.markdown(
                 f'<meta http-equiv="refresh" content="0; url=mailto:katrinidad@blike.com.ph?subject={enroll_subject}">',
