@@ -59,12 +59,12 @@ for _, row in filtered_df.iterrows():
             
             if submit:
                 subject = f"Training Enrollment: {row['Title']}"
-                body = f"""Hi {name},%0D%0A%0D%0A
+                body = f"""Hi {name},
 
-            I would like to enroll in the training titled "{row['Title']}".%0D%0A%0D%0A
-            Name: {name}%0D%0A
-            Email: {email}%0D%0A
-            Phone: {phone}%0D%0A%0D%0A
+            I would like to enroll in the training titled "{row['Title']}".
+            Name: {name}
+            Email: {email}
+            Phone: {phone}
             Thank you!"""  
     
                 # Encode for URL
