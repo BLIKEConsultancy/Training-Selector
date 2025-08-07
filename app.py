@@ -51,9 +51,30 @@ for _, row in filtered_df.iterrows():
         st.markdown(f"**Description:** {row['Description']}")
         st.markdown(f"**Price:** {row['Price']}")
 
-        if st.button(f"📩 Enroll in {row['Title']}", key=f"enroll_{row['Title']}"):
-            enroll_subject = f"Training Enrollment: {row['Title']}"
-            st.markdown(
-                f'<meta http-equiv="refresh" content="0; url=mailto:katrinidad@blike.com.ph?subject={enroll_subject}">',
-                unsafe_allow_html=True
-        )
+        with st.expander("📋 Enroll Now"):
+            name = st.text_input(f"Your Name for {row['Title']}", key=f"name_{row['Title']}")
+            email = st.text_input(f"Your Email", key=f"email_{row['Title']}")
+            phone = st.text_input(f"Your Phone Number", key=f"phone_{row['Title']}")
+
+            if st.button(f"📩 Confirm Enrollment", key=f"enroll_{row['Title']}"):
+                if name and email:
+                    subject = f"Training Enrollment: {row['Title']}"
+                    body = (
+                        f"Hi,\n\n"
+                        f"I would like to enroll in the training titled \"{row['Title']}\".\n\n"
+                        f"Name: {name}\n"
+                        f"Email: {email}\n"
+                        f"Phone: {phone}\n\n"
+                        f"Thank you!"
+                    )
+                    mailto_link = f"mailto:katrinidad@blike.com.ph?subject={subject}&body={body}"
+                    mailto_link = mailto_link.replace('\n', '%0D%0A')  # line breaks for mail body
+
+                    st.markdown(
+                        f'<meta http-equiv="refresh" content="0; url={mailto_link}">',
+                        unsafe_allow_html=True
+                    )
+                else:
+                    st.warning("Please fill in at least your name and email to proceed.")
+
+        st.markdown("---")
