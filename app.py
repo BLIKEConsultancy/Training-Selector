@@ -17,8 +17,8 @@ def load_data():
 df = load_data()
 
 if st.button("🔄 Refresh Training List"):
-    load_data.clear()  # Clears the cached data
-    st.experimental_rerun()  # Reloads the app with fresh data
+    st.cache_data.clear()  # Clears the cached data
+    st.experimental_rerun()  # Reruns the app to fetch fresh data
 
 # Strip leading/trailing spaces from column names
 #df.columns = df.columns.str.strip()
